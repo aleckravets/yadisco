@@ -1,40 +1,46 @@
 import { useState, useEffect } from "react";
+import { Item } from "../api/files/route";
 
-type Item = {
-  name: string;
-  file: string;
-  path: string;
+const getDownloadUrl = (path: string) => {
+  return `/api/download?path=${path}`;
 };
 
 export default function AudioPlayer() {
   const [items, setItems] = useState<Item[]>([]);
   const [currentItem, setCurrentItem] = useState<Item | null>(null);
-  const [href, setHref] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/files")
-      .then((res) => res.json())
-      .then((data) => setItems(data.items || []));
+    const getFiles = async () => {
+      try {
+        const response = await fetch("/api/files");
+        if (!response.ok) {
+          throw new Error(`Failed to get files: ${response.status}: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getFiles();
   }, []);
 
-  const handleClick = async (item: Item) => {
-    const response = await fetch(`/api/download?path=${item.path}`);
-    const file = await response.json();
-    console.log(file);
-    setHref(file.href);
+  const handleClick = (item: Item) => {
     setCurrentItem(item);
   };
 
   return (
     <div>
       <h1>Music Streaming</h1>
+
       {/* Audio Player */}
-      {currentItem && href && (
+      {currentItem && (
         <div className="audio-player">
           <p>Now Playing: {currentItem.name}</p>
           <audio 
             controls 
-            src={href} 
+            src={getDownloadUrl(currentItem.path)} 
             autoPlay
           />
         </div>
