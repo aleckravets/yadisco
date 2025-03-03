@@ -26,7 +26,7 @@ export default function AudioPlayer() {
           <audio 
             controls 
             src={currentItem.file} 
-            crossOrigin="anonymous"
+            crossOrigin="use-credentials"
             autoPlay
           />
         </div>
