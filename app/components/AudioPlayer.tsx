@@ -20,7 +20,7 @@ export default function AudioPlayer() {
       {items.map(item => (
         <div key={item.name}>
           <p>{item.name}</p>
-          <audio controls src={item.file} />
+          <audio controls src={item.file} crossOrigin="anonymous"/>
         </div>
       ))}
     </div>
