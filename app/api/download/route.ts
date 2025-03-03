@@ -38,7 +38,7 @@ export async function GET(req: NextRequest) {
       },
     });
   }
-  catch (error) {
+  catch {
     return NextResponse.json({ error: 'An error occurred' }, { status: 500 });
   }
 }
