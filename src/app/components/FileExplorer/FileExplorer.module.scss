@@ -1,0 +1,75 @@
+.fileExplorer {
+  border-right: 1px solid #ddd;
+  padding: 16px;
+  height: 100%;
+  overflow-y: auto;
+
+  h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+  }
+}
+
+.fileList {
+  list-style: none;
+  padding: 0;
+}
+
+.fileItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    .actions {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.fileName {
+  flex: 1;
+  font-size: 16px;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s;
+  
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+.playButton {
+  color: #0070f3;
+}
+
+.addButton {
+  color: #28a745;
+}

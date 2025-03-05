@@ -1,6 +1,7 @@
 const baseUrl = "https://cloud-api.yandex.net/v1/disk";
 
 export interface YandexDiskItem {
+  resource_id: string;
   name: string;
   path: string;
   type: string;

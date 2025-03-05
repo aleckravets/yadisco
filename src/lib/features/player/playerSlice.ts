@@ -1,22 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Track {
-  id: string;
+export interface Track {
+  id: number;
+  fileId: string;
   title: string;
   url: string;
 }
 
 interface PlayerState {
   playlist: Track[];
+  currentTrack: Track | null;
   currentTrackIndex: number | null;
   isPlaying: boolean;
 }
 
 const initialState: PlayerState = {
   playlist: [],
+  currentTrack: null,
   currentTrackIndex: null,
   isPlaying: false,
 };
+
+let trackId = 0;
 
 export const playerSlice = createSlice({
   name: "player",
@@ -26,8 +31,9 @@ export const playerSlice = createSlice({
       state.playlist = action.payload;
       state.currentTrackIndex = action.payload.length > 0 ? 0 : null;
     },
-    playTrack: (state, action: PayloadAction<number>) => {
+    playTrackByIndex: (state, action: PayloadAction<number>) => {
       state.currentTrackIndex = action.payload;
+      state.currentTrack = state.playlist[action.payload];
       state.isPlaying = true;
     },
     togglePlayPause: (state) => {
@@ -37,6 +43,7 @@ export const playerSlice = createSlice({
       if (state.currentTrackIndex !== null && state.playlist.length > 0) {
         state.currentTrackIndex =
           (state.currentTrackIndex + 1) % state.playlist.length;
+        state.currentTrack = state.playlist[state.currentTrackIndex];
         state.isPlaying = true;
       }
     },
@@ -45,13 +52,28 @@ export const playerSlice = createSlice({
         state.currentTrackIndex =
           (state.currentTrackIndex - 1 + state.playlist.length) %
           state.playlist.length;
+        state.currentTrack = state.playlist[state.currentTrackIndex];
         state.isPlaying = true;
       }
     },
-    addTrack: (state, action: PayloadAction<Track>) => {
-      state.playlist.push(action.payload);
+    addTrack: (state, action: PayloadAction<Omit<Track, "id">>) => {
+      state.playlist.push({
+        id: trackId++,
+        ...action.payload,
+      });
     },
-    removeTrack: (state, action: PayloadAction<string>) => {
+    playTrack: (state, action: PayloadAction<Omit<Track, "id">>) => {
+      state.playlist = [
+        {
+          id: trackId++,
+          ...action.payload,
+        },
+      ];
+      state.currentTrackIndex = 0;
+      state.currentTrack = state.playlist[0];
+      state.isPlaying = true;
+    },
+    removeTrack: (state, action: PayloadAction<number>) => {
       state.playlist = state.playlist.filter(
         (track) => track.id !== action.payload
       );
@@ -68,6 +90,7 @@ export const playerSlice = createSlice({
 export const {
   setPlaylist,
   playTrack,
+  playTrackByIndex,
   togglePlayPause,
   nextTrack,
   prevTrack,

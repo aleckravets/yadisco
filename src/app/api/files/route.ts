@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import { getAuthToken } from "@/utils/authToken";
 import { getAudioFiles } from "@/yandexDiskApi";
 
+export interface FileItem {
+  id: string;
+  name: string;
+  path: string;
+}
+
 export async function GET() {
   const token = await getAuthToken();
 
@@ -12,10 +18,10 @@ export async function GET() {
   try {
     const audioFiles = await getAudioFiles(token);
 
-    // Transform the items to include download URLs
-    const items = audioFiles.map((item) => ({
+    const items = audioFiles.map<FileItem>((item) => ({
+      id: item.resource_id,
       name: item.name,
-      file: `/api/download?path=${encodeURIComponent(item.path)}`,
+      path: item.path,
     }));
 
     return NextResponse.json({ items });

@@ -3,12 +3,9 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 export const Player = () => {
   const dispatch = useAppDispatch();
-  const { playlist, currentTrackIndex, isPlaying } = useAppSelector(
+  const { currentTrack, isPlaying } = useAppSelector(
     (state) => state.player
   );
-
-  const currentTrack =
-    currentTrackIndex !== null ? playlist[currentTrackIndex] : null;
 
   return (
     <div className="player">
