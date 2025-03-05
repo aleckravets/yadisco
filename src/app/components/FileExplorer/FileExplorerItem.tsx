@@ -1,5 +1,5 @@
 import { FileItem } from "@/app/api/files/route";
-import { Play, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import styles from "./FileExplorer.module.scss";
 
 interface FileExplorerItemProps {

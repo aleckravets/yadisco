@@ -37,7 +37,7 @@ export async function isAuthTokenValid(token: string) {
       headers: { Authorization: `OAuth ${token}` },
     });
     return response.ok;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
