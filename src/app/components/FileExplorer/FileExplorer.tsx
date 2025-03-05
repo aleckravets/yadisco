@@ -9,6 +9,21 @@ export const FileExplorer = () => {
 
   useEffect(() => {
     const fetchFiles = async () => {
+      try {
+        const response = await fetch('/api/files');
+        if (!response.ok) {
+          throw new Error('Failed to fetch files');
+        }
+        const data = await response.json();
+        setFiles(data.items.map((item: { name: string, file: string }) => ({
+          name: item.name,
+          url: item.file
+        })));
+      } catch (error) {
+        console.error('Error fetching files:', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchFiles();
