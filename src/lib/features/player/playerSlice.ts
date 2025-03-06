@@ -7,18 +7,24 @@ export interface Track {
   url: string;
 }
 
+export type Status = "playing" | "paused" | "stopped";
+
 interface PlayerState {
   playlist: Track[];
   currentTrack: Track | null;
   currentTrackIndex: number | null;
-  isPlaying: boolean;
+  status: Status;
+  volume: number;
+  loop: boolean;
 }
 
 const initialState: PlayerState = {
   playlist: [],
   currentTrack: null,
   currentTrackIndex: null,
-  isPlaying: false,
+  status: "stopped",
+  volume: 1,
+  loop: false,
 };
 
 let trackId = 0;
@@ -34,17 +40,22 @@ export const playerSlice = createSlice({
     playTrackByIndex: (state, action: PayloadAction<number>) => {
       state.currentTrackIndex = action.payload;
       state.currentTrack = state.playlist[action.payload];
-      state.isPlaying = true;
+      state.status = "playing";
     },
     togglePlayPause: (state) => {
-      state.isPlaying = !state.isPlaying;
+      if (state.currentTrack) {
+        state.status = state.status === "playing" ? "paused" : "playing";
+      }
+    },
+    stop: (state) => {
+      state.status = "stopped";
     },
     nextTrack: (state) => {
       if (state.currentTrackIndex !== null && state.playlist.length > 0) {
         state.currentTrackIndex =
           (state.currentTrackIndex + 1) % state.playlist.length;
         state.currentTrack = state.playlist[state.currentTrackIndex];
-        state.isPlaying = true;
+        state.status = "playing";
       }
     },
     prevTrack: (state) => {
@@ -53,7 +64,7 @@ export const playerSlice = createSlice({
           (state.currentTrackIndex - 1 + state.playlist.length) %
           state.playlist.length;
         state.currentTrack = state.playlist[state.currentTrackIndex];
-        state.isPlaying = true;
+        state.status = "playing";
       }
     },
     addTrack: (state, action: PayloadAction<Omit<Track, "id">>) => {
@@ -71,7 +82,7 @@ export const playerSlice = createSlice({
       ];
       state.currentTrackIndex = 0;
       state.currentTrack = state.playlist[0];
-      state.isPlaying = true;
+      state.status = "playing";
     },
     removeTrack: (state, action: PayloadAction<number>) => {
       state.playlist = state.playlist.filter(
@@ -84,6 +95,12 @@ export const playerSlice = createSlice({
         state.currentTrackIndex = state.playlist.length - 1;
       }
     },
+    setVolume: (state, action: PayloadAction<number>) => {
+      state.volume = action.payload;
+    },
+    toggleLoop: (state) => {
+      state.loop = !state.loop;
+    }
   },
 });
 
@@ -96,4 +113,7 @@ export const {
   prevTrack,
   addTrack,
   removeTrack,
+  setVolume,
+  stop,
+  toggleLoop
 } = playerSlice.actions;

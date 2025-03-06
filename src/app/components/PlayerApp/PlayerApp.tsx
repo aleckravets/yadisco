@@ -1,6 +1,6 @@
 "use client";
 import { FileExplorer } from "../FileExplorer/FileExplorer";
-import { Player } from "../Player/Player";
+import { MusicPlayer } from "../MusicPlayer";
 import { Playlist } from "../Playlist/Playlist";
 import styles from "./PlayerApp.module.scss";
 
@@ -11,7 +11,7 @@ export function PlayerApp() {
         <FileExplorer />
       </aside>
       <main className={styles.mainContent}>
-        <Player />
+        <MusicPlayer />
         <Playlist />
       </main>
     </div>
