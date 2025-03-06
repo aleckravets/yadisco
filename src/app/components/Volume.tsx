@@ -1,6 +1,6 @@
 import { Slider } from "@/components/ui/slider";
-import { useState } from 'react';
-import { Button, buttonVariants } from "@/components/ui/button";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Volume2 as VolumeIcon, VolumeOff } from "lucide-react";
 
 interface VolumeProps {
@@ -16,23 +16,22 @@ export function Volume({ value, onChange, disabled }: VolumeProps) {
     if (value > 0) {
       setLastValue(value);
     }
-  }
+  };
 
   const toggleMute = () => {
     if (value === 0) {
       onChange?.(lastValue);
-    }
-    else {
+    } else {
       onChange?.(0);
     }
-  }
+  };
 
   return (
     <div className="w-35 flex items-center">
       <Button
         onClick={toggleMute}
-        title={value === 0 ? 'Unmute' : 'Mute'}
-        variant={'link'}
+        title={value === 0 ? "Unmute" : "Mute"}
+        variant={"link"}
         className="cursor-pointer"
         disabled={disabled}
       >
@@ -42,12 +41,12 @@ export function Volume({ value, onChange, disabled }: VolumeProps) {
         value={[value ?? 1]}
         max={1}
         step={0.01}
-        onValueChange={value => onChange?.(value[0])}
-        onValueCommit={value => handleVolumeChangeComplete(value[0])}
-        title='Volume'
+        onValueChange={(value) => onChange?.(value[0])}
+        onValueCommit={(value) => handleVolumeChangeComplete(value[0])}
+        title="Volume"
         className="cursor-pointer"
         disabled={disabled}
       />
     </div>
-  )
+  );
 }

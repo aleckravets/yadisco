@@ -1,7 +1,7 @@
 // middleware.js
 import { NextRequest, NextResponse } from 'next/server';
 import { getAuthToken } from './utils/authToken';
-import { isAuthTokenValid } from './yandexDiskApi';
+// import { isAuthTokenValid } from './yandexDiskApi';
 
 async function authMiddleware(req: NextRequest) {
   try {
@@ -11,11 +11,11 @@ async function authMiddleware(req: NextRequest) {
       throw new Error('Unauthorized');
     }
 
-    const isTokenValid = await isAuthTokenValid(token);
+    // const isTokenValid = await isAuthTokenValid(token);
 
-    if (!isTokenValid) {
-      throw new Error('Invalid token');
-    }
+    // if (!isTokenValid) {
+    //   throw new Error('Invalid token');
+    // }
   }
   catch(error) {
     console.log(error);

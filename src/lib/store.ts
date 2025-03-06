@@ -1,15 +1,17 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { playerSlice } from "./features/player/playerSlice";
-import { explorerSlice } from "./features/explorer/explorerSlice";
+import { filesApiSlice } from "./features/files/filesApiSlice";
 
-const rootReducer = combineSlices(playerSlice, explorerSlice);
+const rootReducer = combineSlices(playerSlice, filesApiSlice);
 
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const makeStore = () => {
   return configureStore({
     reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(filesApiSlice.middleware),
   });
 };
 
