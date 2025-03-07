@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Volume2 as VolumeIcon, VolumeOff } from "lucide-react";
 
 interface VolumeProps {
-  value?: number;
+  value: number;
   onChange?: (value: number) => void;
   disabled?: boolean;
 }
 
 export function Volume({ value, onChange, disabled }: VolumeProps) {
-  const [lastValue, setLastValue] = useState(value || 1);
+  const [lastValue, setLastValue] = useState(value);
 
   const handleVolumeChangeComplete = (value: number) => {
     if (value > 0) {

@@ -5,6 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Yadisco",
   description: "Yadisco - Музыка с Яндекс Диска",
+  icons: "/icon.svg",
 };
 
 export default function RootLayout({
