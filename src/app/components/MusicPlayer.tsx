@@ -6,34 +6,36 @@ import {
 } from "@/lib/features/player/playerSlice";
 import { Play, Pause, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
 import { Volume } from "./Volume";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useAudioCurrentTime } from "./useAudioCurrentTime";
+import { TrackProgress } from "./TrackProgress";
 
 export const MusicPlayer = () => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useAudioCurrentTime(audio);
-  const [seeking, setSeeking] = useState<number | null>(null);
   const dispatch = useAppDispatch();
 
-  const {
-    currentTrack: currentFile,
-    status,
-    volume,
-  } = useAppSelector((state) => state.player);
+  const { currentFile, status, volume } = useAppSelector(
+    (state) => state.player
+  );
+
+  const isPlaying = status === "playing";
 
   useEffect(() => {
     if (currentFile) {
-      const audio = new Audio(
-        "/api/download?path=" + encodeURIComponent(currentFile.path)
-      );
+      console.log("new audio", currentFile);
+
+      const audio = new Audio("/api/download?path=" + encodeURIComponent(currentFile.path));
 
       audio.addEventListener("loadedmetadata", () => {
         setDuration(audio.duration);
       });
 
-      audio.play();
+      if (isPlaying) {
+        audio.play();
+      }
 
       setAudio(audio);
 
@@ -66,8 +68,6 @@ export const MusicPlayer = () => {
     }
   }, [audio, status]);
 
-  const isPlaying = status === "playing";
-
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -97,14 +97,10 @@ export const MusicPlayer = () => {
             <Square />
           </Button>
         </div>
-        <Slider
-          value={[seeking ?? currentTime!]}
-          onValueChange={(values) => setSeeking(values[0])}
-          onValueCommit={(values) => {
-            setSeeking(null);
-            setCurrentTime(values[0]);
-          }}
-          max={duration}
+        <TrackProgress
+          currentTime={currentTime}
+          duration={duration}
+          onChange={setCurrentTime}
         />
         <Volume
           value={volume}
@@ -113,35 +109,4 @@ export const MusicPlayer = () => {
       </div>
     </div>
   );
-};
-
-export const useAudioCurrentTime = (audio: HTMLAudioElement | null) => {
-  const [currentTime, setCurrentTime] = useState<number | null>(null);
-  const animationFrameId = useRef<number | null>(null);
-
-  useEffect(() => {
-      const updateCurrentTime = () => {
-          if (audio) {
-              setCurrentTime(audio.currentTime);
-          }
-          animationFrameId.current = requestAnimationFrame(updateCurrentTime);
-      };
-
-      animationFrameId.current = requestAnimationFrame(updateCurrentTime);
-
-      return () => {
-          if (animationFrameId.current) {
-              cancelAnimationFrame(animationFrameId.current);
-          }
-      };
-  }, [audio]);
-
-  const setter = (time: number) => {
-      if (audio) {
-          audio.currentTime = time;
-          setCurrentTime(time);
-      }
-  }
-
-  return [currentTime, setter] as const;
 };

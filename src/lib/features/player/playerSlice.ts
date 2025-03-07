@@ -4,13 +4,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type Status = "playing" | "paused" | "stopped";
 
 interface PlayerState {
-  currentTrack: FileItem | null;
+  currentFile: FileItem | null;
   status: Status;
   volume: number;
 }
 
 const initialState: PlayerState = {
-  currentTrack: null,
+  currentFile: null,
   status: "stopped",
   volume: 1,
 };
@@ -20,7 +20,7 @@ export const playerSlice = createSlice({
   initialState,
   reducers: {
     togglePlayPause: (state) => {
-      if (state.currentTrack) {
+      if (state.currentFile) {
         state.status = state.status === "playing" ? "paused" : "playing";
       }
     },
@@ -28,7 +28,7 @@ export const playerSlice = createSlice({
       state.status = "stopped";
     },
     playTrack: (state, action: PayloadAction<FileItem>) => {
-      state.currentTrack = action.payload;
+      state.currentFile = action.payload;
       state.status = "playing";
     },
     setVolume: (state, action: PayloadAction<number>) => {
