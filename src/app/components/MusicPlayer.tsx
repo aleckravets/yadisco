@@ -55,6 +55,17 @@ export const MusicPlayer = () => {
 
   useEffect(() => {
     if (audio) {
+      const handleEnd = () => dispatch(stop());
+      audio.addEventListener('ended', handleEnd);
+      
+      return () => {
+        audio.removeEventListener('ended', handleEnd);
+      }
+    }
+  }, [audio]);
+
+  useEffect(() => {
+    if (audio) {
       if (status === "playing") {
         audio.play();
       }
