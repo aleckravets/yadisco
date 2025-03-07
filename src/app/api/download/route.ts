@@ -21,12 +21,7 @@ export async function GET(req: NextRequest) {
     // Stream the file response
     return new NextResponse(body, {
       status,
-      headers: {
-        "Content-Type":
-          headers.get("Content-Type") || "application/octet-stream",
-        "Content-Disposition":
-          headers.get("Content-Disposition") || "attachment",
-      },
+      headers,
     });
   } catch {
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });
