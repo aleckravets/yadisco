@@ -1,4 +1,4 @@
-import { playTrack as playFile } from "@/lib/features/player/playerSlice";
+import { playFile } from "@/lib/features/player/playerSlice";
 import styles from "./FileExplorer.module.scss";
 import { FileItem } from "@/app/api/files/route";
 import { FileExplorerItem } from "./FileExplorerItem";
@@ -29,7 +29,7 @@ export const FileExplorer = () => {
           <FileExplorerItem
             key={file.id}
             file={file}
-            onPlay={() => handlePlayItem(file)}
+            onPlay={handlePlayItem}
           />
         ))}
       </ul>

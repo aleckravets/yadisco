@@ -27,7 +27,7 @@ export const playerSlice = createSlice({
     stop: (state) => {
       state.status = "stopped";
     },
-    playTrack: (state, action: PayloadAction<FileItem>) => {
+    playFile: (state, action: PayloadAction<FileItem>) => {
       state.currentFile = action.payload;
       state.status = "playing";
     },
@@ -37,9 +37,5 @@ export const playerSlice = createSlice({
   },
 });
 
-export const {
-  playTrack,
-  togglePlayPause,
-  setVolume,
-  stop,
-} = playerSlice.actions;
+export const { playFile, togglePlayPause, setVolume, stop } =
+  playerSlice.actions;

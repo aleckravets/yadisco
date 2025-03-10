@@ -29,6 +29,7 @@ export function TrackProgress({
       max={duration}
       onValueChange={(values) => handleOnChange(values[0])}
       onValueCommit={(values) => handleOnCommit(values[0])}
+      className="cursor-pointer"
     />
   );
 }

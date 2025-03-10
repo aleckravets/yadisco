@@ -3,7 +3,7 @@ import styles from "./FileExplorer.module.scss";
 
 interface FileExplorerItemProps {
   file: FileItem;
-  onPlay: () => void;
+  onPlay?: (file: FileItem) => void;
 }
 
 export function FileExplorerItem({
@@ -11,7 +11,7 @@ export function FileExplorerItem({
   onPlay,
 }: FileExplorerItemProps) {
   return (
-    <li className={styles.fileItem} onClick={onPlay}>
+    <li className={styles.fileItem} onClick={() => onPlay?.(file)}>
       <span className={styles.fileName}>{file.name}</span>
     </li>
   );

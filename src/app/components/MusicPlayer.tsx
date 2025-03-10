@@ -8,13 +8,12 @@ import { Play, Pause, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Volume } from "./Volume";
 import { useEffect, useState } from "react";
-import { useAudioCurrentTime } from "./useAudioCurrentTime";
 import { TrackProgress } from "./TrackProgress";
 
 export const MusicPlayer = () => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [duration, setDuration] = useState(0);
-  const [currentTime, setCurrentTime] = useAudioCurrentTime(audio);
+  const [currentTime, setCurrentTime] = useState<number>(0);
   const dispatch = useAppDispatch();
 
   const { currentFile, status, volume } = useAppSelector(
@@ -24,45 +23,55 @@ export const MusicPlayer = () => {
   const isPlaying = status === "playing";
 
   useEffect(() => {
-    if (currentFile) {
-      console.log("new audio", currentFile);
+    const audio = new Audio();
 
-      const audio = new Audio("/api/download?path=" + encodeURIComponent(currentFile.path));
+    audio.addEventListener("loadedmetadata", () => {
+      setDuration(audio.duration);
+    });
 
-      audio.addEventListener("loadedmetadata", () => {
-        setDuration(audio.duration);
-      });
+    audio.addEventListener("ended", () => dispatch(stop()));
+
+    setAudio(audio);
+
+    return () => audio.pause();
+  }, []);
+
+  useEffect(() => {
+    if (audio && status === "playing") {
+      let animationFrameId: number;
+
+      const updateCurrentTime = () => {
+        setCurrentTime(audio.currentTime);
+        animationFrameId = requestAnimationFrame(updateCurrentTime);
+      };
+
+      updateCurrentTime();
+
+      return () => {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+      };
+    }
+  }, [audio, status]);
+
+  useEffect(() => {
+    if (audio && currentFile) {
+      audio.pause();
+
+      audio.src = "/api/download?path=" + encodeURIComponent(currentFile.path);
 
       if (isPlaying) {
         audio.play();
       }
-
-      setAudio(audio);
-
-      return () => {
-        // audio should be paused to let it be garbage-collected
-        audio.pause();
-        setAudio(null);
-      };
     }
-  }, [currentFile]);
+  }, [audio, currentFile]);
 
   useEffect(() => {
     if (audio) {
       audio.volume = volume;
     }
   }, [audio, volume]);
-
-  useEffect(() => {
-    if (audio) {
-      const handleEnd = () => dispatch(stop());
-      audio.addEventListener('ended', handleEnd);
-      
-      return () => {
-        audio.removeEventListener('ended', handleEnd);
-      }
-    }
-  }, [audio]);
 
   useEffect(() => {
     if (audio) {
@@ -78,6 +87,13 @@ export const MusicPlayer = () => {
       }
     }
   }, [audio, status]);
+
+  const handleSeek = (time: number) => {
+    if (audio) {
+      audio.currentTime = time;
+      setCurrentTime(time);
+    }
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -111,7 +127,7 @@ export const MusicPlayer = () => {
         <TrackProgress
           currentTime={currentTime}
           duration={duration}
-          onChange={setCurrentTime}
+          onChange={handleSeek}
         />
         <Volume
           value={volume}
