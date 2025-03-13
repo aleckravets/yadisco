@@ -1,11 +1,12 @@
+"use client";
 import { playFile } from "@/lib/features/player/playerSlice";
-import styles from "./FileExplorer.module.scss";
+import styles from "./FileList.module.scss";
 import { FileItem } from "@/app/api/files/route";
-import { FileExplorerItem } from "./FileExplorerItem";
+import { FileListItem } from "./FileListItem";
 import { useAppDispatch } from "@/lib/hooks";
 import { useGetFilesQuery } from "@/lib/features/files/filesApiSlice";
 
-export const FileExplorer = () => {
+export const FileList = () => {
   const { data, isError, isLoading } = useGetFilesQuery();
   const dispatch = useAppDispatch();
 
@@ -26,11 +27,7 @@ export const FileExplorer = () => {
       <h2 className="mb-2 border-b pb-4">📂 Моя Музыка</h2>
       <ul className={styles.fileList}>
         {files.map((file) => (
-          <FileExplorerItem
-            key={file.id}
-            file={file}
-            onPlay={handlePlayItem}
-          />
+          <FileListItem key={file.id} file={file} onPlay={handlePlayItem} />
         ))}
       </ul>
     </div>

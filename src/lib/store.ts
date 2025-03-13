@@ -2,8 +2,9 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { playerSlice } from "./features/player/playerSlice";
 import { filesApiSlice } from "./features/files/filesApiSlice";
+import { explorerSlice } from "./features/explorer/explorerSlice";
 
-const rootReducer = combineSlices(playerSlice, filesApiSlice);
+const rootReducer = combineSlices(explorerSlice, playerSlice, filesApiSlice);
 
 export type RootState = ReturnType<typeof rootReducer>;
 

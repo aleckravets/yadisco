@@ -1,17 +1,5 @@
 const baseUrl = "https://cloud-api.yandex.net/v1/disk";
 
-export interface YandexDiskItem {
-  resource_id: string;
-  name: string;
-  path: string;
-  type: string;
-  size?: number;
-  created?: string;
-  modified?: string;
-  media_type: string;
-  mime_type: string;
-}
-
 export async function getAccessToken(code: string) {
   const CLIENT_ID = process.env.YANDEX_CLIENT_ID as string;
   const CLIENT_SECRET = process.env.YANDEX_CLIENT_SECRET as string;
@@ -46,7 +34,7 @@ export async function isAuthTokenValid(token: string) {
   }
 }
 
-export async function getAudioFiles(token: string): Promise<YandexDiskItem[]> {
+export async function getAudioFiles(token: string): Promise<FilesResourceList> {
   try {
     const response = await fetch(
       `${baseUrl}/resources/files?limit=100&media_type=audio`,
@@ -89,3 +77,4 @@ export async function getDownloadLink(token: string, path: string): Promise<stri
     throw error;
   }
 }
+

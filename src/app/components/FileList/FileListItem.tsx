@@ -1,15 +1,15 @@
 import { FileItem } from "@/app/api/files/route";
-import styles from "./FileExplorer.module.scss";
+import styles from "./FileList.module.scss";
 
-interface FileExplorerItemProps {
+interface FileListItemProps {
   file: FileItem;
   onPlay?: (file: FileItem) => void;
 }
 
-export function FileExplorerItem({
+export function FileListItem({
   file,
   onPlay,
-}: FileExplorerItemProps) {
+}: FileListItemProps) {
   return (
     <li className={styles.fileItem} onClick={() => onPlay?.(file)}>
       <span className={styles.fileName}>{file.name}</span>

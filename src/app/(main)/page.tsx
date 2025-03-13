@@ -1,6 +1,5 @@
-"use client";
-import { FileExplorer } from "../components/FileExplorer/FileExplorer";
+import { FileList } from "../components/FileList/FileList";
 
 export default function Home() {
-  return <FileExplorer />;
+  return <FileList />;
 }

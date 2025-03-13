@@ -26,6 +26,7 @@ export async function GET() {
 
     return NextResponse.json({ items });
   } catch (error) {
+    // todo handle auth error
     console.error("Error fetching audio files:", error);
     return NextResponse.json(
       { error: "Failed to fetch audio files" },
