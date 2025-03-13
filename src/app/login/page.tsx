@@ -4,7 +4,7 @@ import Script from "next/script";
 import { BASE_URL, CLIENT_ID } from "@/constants";
 import { useRouter } from "next/navigation";
 
-export const REDIRECT_URI = `${BASE_URL}/oauth/code`;
+const REDIRECT_URI = `${BASE_URL}/oauth/code`;
 
 export default function Login() {
   const router = useRouter();
