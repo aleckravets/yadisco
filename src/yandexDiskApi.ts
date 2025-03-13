@@ -26,6 +26,10 @@ export async function getAccessToken(code: string) {
           client_secret: CLIENT_SECRET,
       }),
   });
+  
+  if (!response.ok) {
+    throw new Error(`Failed to get access token by code, ${response.status} ${response.statusText}`);
+  }
 
   return response.json();
 }
