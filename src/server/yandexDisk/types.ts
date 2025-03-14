@@ -1,5 +1,7 @@
 // https://yandex.ru/dev/disk-api/doc/ru/reference/response-objects
 
+export type ResourceType = "dir" | "file";
+
 // Описание ресурса, мета-информация о файле или папке.
 export interface Resource {
   public_key?: string;
@@ -12,7 +14,7 @@ export interface Resource {
   modified: string; // Дата в формате ISO 8601
   path: string;
   md5: string;
-  type: 'dir' | 'file';
+  type: ResourceType;
   mime_type: string;
   size: number;
   preview?: string; // Ссылка на превью изображения, доступна только для определённых типов файлов

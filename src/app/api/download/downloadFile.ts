@@ -3,7 +3,9 @@ export async function downloadFile(downloadUrl: string): Promise<Response> {
     const res = await fetch(downloadUrl);
 
     if (!res.ok) {
-      throw new Error(`Failed to download file: ${res.status}: ${res.statusText}`);
+      throw new Error(
+        `Failed to download file: ${res.status}: ${res.statusText}`
+      );
     }
 
     return res;

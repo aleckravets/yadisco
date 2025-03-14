@@ -1,6 +1,6 @@
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "@/ui-kit/slider";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui-kit/button";
 import { Volume2 as VolumeIcon, VolumeOff } from "lucide-react";
 
 interface VolumeProps {

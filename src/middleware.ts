@@ -1,11 +1,11 @@
 // middleware.js
 import { NextRequest, NextResponse } from 'next/server';
-import { getAuthToken } from './utils/authToken';
+import { getAuthTokenCookie } from './server/authTokenCookie';
 // import { isAuthTokenValid } from './yandexDiskApi';
 
 async function authMiddleware(req: NextRequest) {
   try {
-    const token = await getAuthToken();
+    const token = await getAuthTokenCookie();
 
     if (!token) {
       throw new Error('Unauthorized');

@@ -1,36 +1,25 @@
-import { NextResponse } from "next/server";
-import { getAuthToken } from "@/utils/authToken";
-import { getAudioFiles } from "@/yandexDiskApi";
+import { NextRequest, NextResponse } from "next/server";
+import { loadFilesFromYandexDisk } from "@/server/api/files";
+import { AxiosError } from "axios";
 
-export interface FileItem {
-  id: string;
-  name: string;
-  path: string;
-}
-
-export async function GET() {
-  const token = await getAuthToken();
-
-  if (!token) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+  const path = searchParams.get("path") || "";
 
   try {
-    const audioFiles = await getAudioFiles(token);
+    const filesListResponse = await loadFilesFromYandexDisk(path);
+    return NextResponse.json(filesListResponse);
+  } catch (error: unknown) {
+    console.log(error instanceof AxiosError, error);
+    if (error instanceof AxiosError) {
+      const { status } = error;
+      if (status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status });
+      }
+    }
 
-    const items = audioFiles.map<FileItem>((item) => ({
-      id: item.resource_id,
-      name: item.name,
-      path: item.path,
-    }));
+    console.error(`Failed to get resource metadata for path "${path}"`, error);
 
-    return NextResponse.json({ items });
-  } catch (error) {
-    // todo handle auth error
-    console.error("Error fetching audio files:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch audio files" },
-      { status: 500 }
-    );
+    return NextResponse.json({error: "Request failed"}, { status: 500 });
   }
 }

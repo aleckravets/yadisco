@@ -3,9 +3,9 @@ import {
   togglePlayPause,
   setVolume,
   stop,
-} from "@/lib/features/player/playerSlice";
+} from "@/lib/features/playerSlice";
 import { Play, Pause, Square } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/ui-kit/button";
 import { Volume } from "./Volume";
 import { useEffect, useState } from "react";
 import { TrackProgress } from "./TrackProgress";

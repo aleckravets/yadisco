@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 
-export const AUTH_TOKEN = "YA_OAUTH_TOKEN";
+export const AUTH_TOKEN = "YANDEX_AUTH_TOKEN";
 
-export async function getAuthToken() {
+export async function getAuthTokenCookie() {
   return (await cookies()).get(AUTH_TOKEN)?.value;
 }

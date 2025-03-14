@@ -1,10 +1,10 @@
 "use client";
-import { playFile } from "@/lib/features/player/playerSlice";
+import { playFile } from "@/lib/features/playerSlice";
 import styles from "./FileList.module.scss";
 import { FileItem } from "@/app/api/files/route";
 import { FileListItem } from "./FileListItem";
 import { useAppDispatch } from "@/lib/hooks";
-import { useGetFilesQuery } from "@/lib/features/files/filesApiSlice";
+import { useGetFilesQuery } from "@/lib/features/filesApiSlice";
 
 export const FileList = () => {
   const { data, isError, isLoading } = useGetFilesQuery();

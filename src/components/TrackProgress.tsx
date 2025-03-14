@@ -1,4 +1,4 @@
-import { Slider } from "@/components/ui/slider";
+import { Slider } from "@/ui-kit/slider";
 import { useState } from "react";
 
 interface TrackProgressProps {

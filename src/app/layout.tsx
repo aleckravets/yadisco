@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import { StoreProvider } from "@/components/StoreProvider";
 
 export const metadata: Metadata = {
   title: "Yadisco",
@@ -14,11 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        {children}
-        <Analytics />
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body>
+          {children}
+          <Analytics />
+        </body>
+      </html>
+    </StoreProvider>
   );
 }

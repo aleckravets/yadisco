@@ -1,5 +1,10 @@
-import { FileList } from "../components/FileList/FileList";
+import { Explorer } from "@/components/Explorer/Explorer";
 
-export default function Home() {
-  return <FileList />;
+interface HomeProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const { path } = await searchParams;
+  return <Explorer path={path as string} />;
 }

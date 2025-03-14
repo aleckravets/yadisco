@@ -1,8 +1,8 @@
 "use client";
 import { Folder, Music } from "lucide-react";
-import { MusicPlayer } from "../components/MusicPlayer";
-import { StoreProvider } from "../StoreProvider";
+import { MusicPlayer } from "@/components/MusicPlayer";
 import Link from "next/link";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 export default function MainAppLayout({
   children,
@@ -10,14 +10,22 @@ export default function MainAppLayout({
   children: React.ReactNode;
 }) {
   return (
-    <StoreProvider>
+    <ErrorBoundary>
       <div className="flex h-screen w-full max-w-300 mx-auto">
         <aside className="bg-white w-50 h-full flex flex-col">
           <div className="p-4 text-xl font-bold border-b">🎵 Yadisco</div>
 
           <nav className="flex-1 p-4 space-y-2">
-            <SidebarItem icon={<Folder size={20} />} label="Моя музыка" href={"/"} />
-            <SidebarItem icon={<Music size={20} />} label="Плейлисты" href={"/playlist"} />
+            <SidebarItem
+              icon={<Folder size={20} />}
+              label="Моя музыка"
+              href={"/"}
+            />
+            <SidebarItem
+              icon={<Music size={20} />}
+              label="Плейлисты"
+              href={"/playlist"}
+            />
             {/* <SidebarItem icon={<Settings size={20} />} label="Settings" /> */}
           </nav>
 
@@ -32,7 +40,7 @@ export default function MainAppLayout({
           </div>
         </main>
       </div>
-    </StoreProvider>
+    </ErrorBoundary>
   );
 }
 

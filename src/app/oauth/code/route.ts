@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/constants";
-import { AUTH_TOKEN } from "@/utils/authToken";
+import { AUTH_TOKEN } from "@/server/authTokenCookie";
 import { getAccessToken } from "@/yandexDiskApi";
 import { NextRequest, NextResponse } from "next/server";
 
