@@ -1,7 +1,7 @@
 import { signIn } from "@/auth";
 import Image from "next/image";
 
-export default function SignIn() {
+export default function SignInButton() {
   return (
     <form
       action={async () => {

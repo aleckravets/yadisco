@@ -1,10 +1,7 @@
-import { auth } from "@/auth";
-import SignIn from "@/components/sing-in";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Home() {
-  const session = await auth();
-
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-[32px] row-start-2 items-center">
@@ -12,9 +9,13 @@ export default async function Home() {
         <p className="text-gray-600 text-xl mt-2 mb-6">
           Слушайте любимую музыку с Яндекс.Диска
         </p>
-        <SignIn />
 
-        <pre>{JSON.stringify(session, null, 2)}</pre>
+        <Link
+          href="/app"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        >
+          Начать
+        </Link>
       </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
         <a
