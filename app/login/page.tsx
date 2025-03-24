@@ -1,14 +1,19 @@
 import { auth } from "@/auth";
-import SignInButton from "@/components/sign-in-button";
 import Link from "next/link";
-import { NextResponse } from "next/server";
+import SignInButton from "@/components/signin-button";
 
-export default async function Page() {
+interface SearchParams {
+  redirectTo: string;
+  [key: string]: string | string[] | undefined;
+}
+
+interface Props {
+  searchParams: Promise<SearchParams>;
+}
+
+export default async function Page({ searchParams }: Props) {
   const session = await auth();
-
-  if (session && session.user) {
-    return NextResponse.redirect("/app");
-  }
+  const { redirectTo } = await searchParams;
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -17,7 +22,7 @@ export default async function Page() {
           <Link href="/">Yadisco</Link>
         </h1>
 
-        <SignInButton />
+        <SignInButton redirectTo={redirectTo || "/app"} />
       </main>
     </div>
   );

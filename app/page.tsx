@@ -12,7 +12,7 @@ export default async function Home() {
 
         <Link
           href="/app"
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer"
         >
           Начать
         </Link>
