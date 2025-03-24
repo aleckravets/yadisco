@@ -1,15 +1,11 @@
 import { auth } from "@/auth";
 import { SignOut } from "@/components/singout-button";
+import { getAllFiles } from "@/lib/yandexDisk/getAllFiles";
 
 export default async function Page() {
-  const session = await auth();
+  const files = await getAllFiles();
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center">
-        <pre>{JSON.stringify(session, null, 2)}</pre>
-        <SignOut />
-      </main>
-    </div>
+    <pre>{JSON.stringify(files, null, 2)}</pre>
   );
 }

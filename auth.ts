@@ -4,7 +4,12 @@ import { NextResponse } from "next/server";
 import "next-auth/jwt";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  providers: [Yandex],
+  providers: [
+    Yandex({
+      authorization:
+        "https://oauth.yandex.ru/authorize?scope=login:info+login:email+login:avatar+cloud_api:disk.app_folder+cloud_api:disk.read",
+    }),
+  ],
   callbacks: {
     jwt({ token, account }) {
       if (account?.access_token) {
