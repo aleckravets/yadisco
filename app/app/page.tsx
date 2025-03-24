@@ -1,8 +1,7 @@
 import { auth } from "@/auth";
 import { SignOut } from "@/components/singout-button";
-import { NextRequest } from "next/server";
 
-export default async function Page(request: NextRequest) {
+export default async function Page() {
   const session = await auth();
 
   return (

@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import Link from "next/link";
 import SignInButton from "@/components/signin-button";
 
@@ -12,7 +11,6 @@ interface Props {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const session = await auth();
   const { redirectTo } = await searchParams;
 
   return (
