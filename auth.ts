@@ -10,6 +10,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         "https://oauth.yandex.ru/authorize?scope=login:info+login:email+login:avatar+cloud_api:disk.app_folder+cloud_api:disk.read",
     }),
   ],
+  pages: {
+    error: "/error",
+  },
   callbacks: {
     jwt({ token, account }) {
       if (account?.access_token) {
