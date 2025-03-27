@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import Image from "next/image";
-import { UserInfo } from "@/components/singout-button";
+import { UserMenu } from "@/components/user-menu";
 import { FolderIcon, MusicalNoteIcon } from "@heroicons/react/24/outline";
 
 export default async function AppLayout({
@@ -20,11 +20,13 @@ export default async function AppLayout({
   const { accessToken, user } = session;
 
   return (
-    <div className="flex h-screen w-full max-w-300 mx-auto">
-      <aside className="w-50 h-full flex flex-col">
-        <div className="flex gap-2 p-4 text-xl font-bold justify-center">
+    <div className="flex h-screen w-full max-w-6xl mx-auto">
+      <aside className="w-52 h-full flex flex-col bg-yellow-100">
+        <div className="h-6 flex gap-2 p-8 text-xl font-bold items-center justify-center">
           <MusicalNoteIcon className="size-6" /> Yadisco
         </div>
+
+        <div className="flex-1"></div>
 
         {/* <nav className="flex-1 p-4 space-y-2">
           <SidebarItem
@@ -34,12 +36,12 @@ export default async function AppLayout({
           />
         </nav> */}
 
-        <div className="p-4 text-center text-sm text-gray-500">
-          <UserInfo user={session.user} />
+        <div className="h-20 p-4 justify-center">
+          <UserMenu user={session.user} />
         </div>
       </aside>
-      <div className="h-full flex-1 flex flex-col bg-gray-100">
-        <main className="flex-1 overflow-y-auto overflow-x-hidden w-full p-4">
+      <div className="flex-1 flex flex-col bg-gray-100">
+        <main className="flex-1 overflow-y-auto w-full p-4">
           {children}
         </main>
         <footer className="h-16 bg-gray-400 text-white flex items-center justify-center">

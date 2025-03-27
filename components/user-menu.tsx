@@ -6,7 +6,7 @@ interface Props {
   user: User;
 }
 
-export function UserInfo({ user }: Props) {
+export function UserMenu({ user }: Props) {
   const src = user.image ?? "/user.svg";
 
   return (
@@ -15,9 +15,11 @@ export function UserInfo({ user }: Props) {
         "use server";
         await signOut({ redirectTo: "/" });
       }}
+      className="flex items-center justify-center"
     >
-      <button type="submit" className="flex items-center">
-        <img src={src} className="w-14 h-14 rounded-full object-cover" />
+      <img src={src} className="size-14 rounded-full object-cover" />
+
+      <button type="submit">
         <ArrowRightStartOnRectangleIcon
           className="size-6 cursor-pointer"
           title="Выйти"
