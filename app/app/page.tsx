@@ -1,13 +1,12 @@
-import ShowError from "@/components/show-error";
-import { getAllFiles } from "@/lib/yandexDisk/getAllFiles";
-import { FilesResourceList } from "@/lib/yandexDisk/types";
+import { getFilesList } from "@/lib/yandexDisk/getFilesList";
 import { AxiosError } from "axios";
 import Link from "next/link";
+import { FilesList } from "@/components/files-list";
 
 export default async function Page() {
   try {
-    const files = await getAllFiles();
-    return <Files files={files} />;
+    const files = await getFilesList({ media_type: ["audio", "video"], limit: 100 });
+    return <FilesList files={files} />;
   } catch (error) {
     if (error instanceof AxiosError && error.status === 403) {
       return (
@@ -19,18 +18,4 @@ export default async function Page() {
     }
     throw error;
   }
-}
-
-interface FilesProps {
-  files: FilesResourceList;
-}
-
-function Files({ files }: FilesProps) {
-  return (
-    <div>
-      {files.items.map((file) => {
-        return <div key={file.path}>{file.name}</div>;
-      })}
-    </div>
-  );
 }

@@ -2,6 +2,27 @@
 
 export type ResourceType = "dir" | "file";
 
+export type MediaType =
+  | "audio"
+  | "backup"
+  | "book"
+  | "compressed"
+  | "data"
+  | "development"
+  | "diskimage"
+  | "document"
+  | "encoded"
+  | "executable"
+  | "flash"
+  | "font"
+  | "image"
+  | "settings"
+  | "spreadsheet"
+  | "text"
+  | "unknown"
+  | "video"
+  | "web";
+
 // Описание ресурса, мета-информация о файле или папке.
 export interface Resource {
   public_key?: string;
@@ -37,3 +58,12 @@ export interface FilesResourceList {
   limit: number; // Максимальное количество элементов в массиве, указанное в запросе
   offset: number; // Смещение от первого ресурса в списке
 }
+
+export type FilesListRequestParams = {
+  limit?: number; // Количество файлов (по умолчанию 20)
+  media_type?: MediaType | MediaType[];
+  offset?: number; // Смещение для пагинации
+  fields?: string; // Список свойств JSON, которые включить в ответ (например, "name,_embedded.items.path")
+  preview_size?: string; // Размер превью (например, "M", "100x100")
+  preview_crop?: boolean; // Обрезка превью (true/false)
+};

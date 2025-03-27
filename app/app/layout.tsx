@@ -40,8 +40,8 @@ export default async function AppLayout({
           <UserMenu user={session.user} />
         </div>
       </aside>
-      <div className="flex-1 flex flex-col bg-gray-100">
-        <main className="flex-1 overflow-y-auto w-full p-4">
+      <div className="flex-1 h-full flex flex-col">
+        <main className="flex-1 overflow-y-hidden w-full">
           {children}
         </main>
         <footer className="h-16 bg-gray-400 text-white flex items-center justify-center">
