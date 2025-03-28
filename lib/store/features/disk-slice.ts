@@ -7,7 +7,7 @@ export const diskApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/api/disk" }),
   endpoints: (build) => ({
     getFilesByPath: build.query<Resource, string>({
-      query: (path) => `/${name}`,
+      query: (path) => `/${path}`,
     }),
   }),
 });

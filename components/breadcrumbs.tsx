@@ -10,10 +10,11 @@ interface Item {
 }
 
 export function Breadcrumbs({ path }: Props) {
-  const items: Item[] = path?.map((part, index) => ({
-    name: part,
-    path: "/disk/" + path.slice(0, index + 1).join("/"),
-  })) ?? [];
+  const items: Item[] =
+    path?.map((part, index) => ({
+      name: part,
+      path: "/disk/" + path.slice(0, index + 1).join("/"),
+    })) ?? [];
 
   items.unshift({ name: "Мой Диск", path: "/disk" });
 
@@ -34,5 +35,3 @@ export function Breadcrumbs({ path }: Props) {
     </nav>
   );
 }
-
-function BreadcrumbItem() {}
