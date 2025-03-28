@@ -13,7 +13,7 @@ export function UserMenu({ user }: Props) {
     <form
       action={async () => {
         "use server";
-        await signOut({ redirectTo: "/" });
+        await signOut({redirectTo: "/"});
       }}
       className="flex items-center justify-center"
     >

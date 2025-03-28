@@ -1,15 +1,19 @@
+"use client";
 import { FilesResourceList, MediaType } from "@/lib/yandexDisk/types";
 import { ArrowDownTrayIcon, PlayIcon } from "@heroicons/react/24/solid";
 import { DocumentIcon, MusicalNoteIcon } from "@heroicons/react/24/outline";
+// import { useState } from "react";
 
 interface FilesProps {
   files: FilesResourceList;
 }
 
-export function FilesList({ files: { items, limit, offset } }: FilesProps) {
+export function FilesList({ files }: FilesProps) {
+  // const [items, setItems] = useState(files.items);
+
   return (
     <ul className="h-full overflow-y-auto divide-y divide-gray-200">
-      {items.map((file, index) => (
+      {files.items.map((file, index) => (
         <li
           key={index}
           className="group flex items-center justify-between p-3 hover:bg-gray-100"

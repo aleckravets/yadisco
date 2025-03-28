@@ -4,10 +4,10 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 interface Props {
-  redirectTo: string;
+  redirectTo?: string;
 }
 
-export default function SignInButton({ redirectTo }: Props) {
+export default function SignInButton({ redirectTo = "/disk" }: Props) {
   return (
     <form
       action={async () => {

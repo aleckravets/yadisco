@@ -3,7 +3,6 @@ import SignInButton from "@/components/signin-button";
 
 interface SearchParams {
   redirectTo: string;
-  [key: string]: string | string[] | undefined;
 }
 
 interface Props {
@@ -20,7 +19,11 @@ export default async function Page({ searchParams }: Props) {
           <Link href="/">Yadisco</Link>
         </h1>
 
-        <SignInButton redirectTo={redirectTo || "/app"} />
+        <p className="text-gray-600 text-xl mt-2 mb-6">
+          Авторизуйтесь в Яндекс.Диске чтобы продолжить
+        </p>
+
+        <SignInButton redirectTo={redirectTo} />
       </main>
     </div>
   );

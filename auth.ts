@@ -8,6 +8,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Yandex({
       authorization:
         "https://oauth.yandex.ru/authorize?scope=login:info+login:email+login:avatar+cloud_api:disk.app_folder+cloud_api:disk.read",
+      checks: ["none"],
     }),
   ],
   pages: {
