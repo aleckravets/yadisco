@@ -1,5 +1,6 @@
-import { getFilesList } from "@/lib/yandexDisk/getFilesList";
-import { FilesList } from "@/components/files-list";
+import { FolderResourceView } from "@/components/folder-resource-view";
+import { Suspense } from "react";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 interface Params {
   path?: string[];
@@ -11,15 +12,18 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { path } = await params;
+  const decodedPath = path?.map(decodeURIComponent);
 
-  const files = await getFilesList({
-    media_type: ["audio", "video"],
-    limit: 100,
-  });
   return (
-    <div className="h-full">
-      <div>Path: {path?.join("/")}</div>
-      <FilesList files={files} />;
+    <div className="h-full flex flex-col">
+      <div className="h-16">
+        <Breadcrumbs path={decodedPath} />
+      </div>
+      <div className="flex-1">
+        <Suspense fallback={<div>Loading...</div>}>
+          <FolderResourceView path={decodedPath} />
+        </Suspense>
+      </div>
     </div>
   );
 }

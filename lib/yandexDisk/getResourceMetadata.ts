@@ -13,7 +13,7 @@ interface GetResourceMetadataParams {
 
 // Метод для получения метаинформации о файле или папке
 export async function getResourceMetadata({
-  path = "",
+  path = "/",
   fields = "",
   limit = 20,
   offset = 0,
@@ -22,7 +22,7 @@ export async function getResourceMetadata({
   sort = "name",
 }: GetResourceMetadataParams): Promise<Resource> {
   const params = new URLSearchParams({
-    path: encodeURIComponent(path),
+    path,
     fields: fields,
     limit: limit.toString(),
     offset: offset.toString(),
@@ -30,6 +30,8 @@ export async function getResourceMetadata({
     preview_size: previewSize,
     sort: sort,
   });
+
+  console.log(params);
 
   const response = await api.get("/resources", {
     params,
