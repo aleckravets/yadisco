@@ -58,8 +58,10 @@ export default async function StartPage({ user }: Props) {
 function Authorized({ user }: Required<Props>) {
   return (
     <div className="flex flex-col gap-[32px] row-start-2 items-center">
-      <img
+      <Image
         src={user.image || "/user.svg"}
+        width="56"
+        height="56"
         alt="Изображение пользователя"
         className="size-14 rounded-full object-cover"
       />

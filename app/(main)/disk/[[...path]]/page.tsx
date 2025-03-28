@@ -1,9 +1,5 @@
 import { getFilesList } from "@/lib/yandexDisk/getFilesList";
-import { AxiosError } from "axios";
-import Link from "next/link";
 import { FilesList } from "@/components/files-list";
-import { auth } from "@/auth";
-import StartPage from "@/components/start-page";
 
 interface Params {
   path?: string[];

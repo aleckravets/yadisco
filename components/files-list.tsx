@@ -1,6 +1,6 @@
 "use client";
-import { FilesResourceList, MediaType } from "@/lib/yandexDisk/types";
-import { ArrowDownTrayIcon, PlayIcon } from "@heroicons/react/24/solid";
+import { FilesResourceList } from "@/lib/yandexDisk/types";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { DocumentIcon, MusicalNoteIcon } from "@heroicons/react/24/outline";
 // import { useState } from "react";
 

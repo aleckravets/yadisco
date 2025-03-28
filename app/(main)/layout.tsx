@@ -1,13 +1,8 @@
-// import { FolderIcon, Music } from "@heroicons/react/24/outline";
-// import { MusicPlayer } from "../components/MusicPlayer";
 import Link from "next/link";
 import { auth } from "@/auth";
-import Image from "next/image";
 import { UserMenu } from "@/components/user-menu";
-import { FolderIcon, MusicalNoteIcon } from "@heroicons/react/24/outline";
+import { MusicalNoteIcon } from "@heroicons/react/24/outline";
 import { PropsWithChildren } from "react";
-import StartPage from "@/components/start-page";
-import { redirect } from "next/navigation";
 
 export default async function MainLayout({ children }: PropsWithChildren) {
   const session = await auth();
@@ -45,17 +40,17 @@ export default async function MainLayout({ children }: PropsWithChildren) {
   );
 }
 
-const SidebarItem = ({
-  icon,
-  label,
-  href,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  href: string;
-}) => (
-  <div className="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer hover:bg-gray-200">
-    {icon}
-    <Link href={href}>{label}</Link>
-  </div>
-);
+// const SidebarItem = ({
+//   icon,
+//   label,
+//   href,
+// }: {
+//   icon: React.ReactNode;
+//   label: string;
+//   href: string;
+// }) => (
+//   <div className="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer hover:bg-gray-200">
+//     {icon}
+//     <Link href={href}>{label}</Link>
+//   </div>
+// );
