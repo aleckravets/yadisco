@@ -6,12 +6,12 @@ import Link from "next/link";
 import { getResourceMetadata } from "@/lib/yandexDisk/getResourceMetadata";
 
 interface FilesProps {
-  path?: string[];
+  path?: string;
 }
 
 export async function FolderResourceView({ path }: FilesProps) {
   const resource = await getResourceMetadata({
-    path: path?.length ? path?.join("/") : "/",
+    path,
   });
 
   const { _embedded: embedded } = resource;
