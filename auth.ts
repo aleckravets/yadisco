@@ -2,12 +2,18 @@ import NextAuth from "next-auth";
 import Yandex from "next-auth/providers/yandex";
 import { NextResponse } from "next/server";
 import "next-auth/jwt";
+import { url } from "inspector";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Yandex({
-      authorization:
-        "https://oauth.yandex.ru/authorize?scope=login:info+login:email+login:avatar+cloud_api:disk.app_folder+cloud_api:disk.read",
+      authorization: {
+        url: "https://oauth.yandex.ru/authorize",
+        params: {
+          scope:
+            "login:info login:email login:avatar cloud_api:disk.read cloud_api:disk.app_folder",
+        },
+      },
       checks: ["none"],
     }),
   ],
