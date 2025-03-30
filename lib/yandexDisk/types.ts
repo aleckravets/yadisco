@@ -67,3 +67,13 @@ export type FilesListRequestParams = {
   preview_size?: string; // Размер превью (например, "M", "100x100")
   preview_crop?: boolean; // Обрезка превью (true/false)
 };
+
+export interface ResourceRequestParams {
+  path?: string; // Путь к файлу или папке '/path/to/resource'
+  fields?: string; // Список свойств, которые нужно включить в ответ (опционально), 'name,_embedded.items.path'
+  limit?: number; // Количество возвращаемых ресурсов (по умолчанию 20)
+  offset?: number; // Смещение для постраничного вывода (по умолчанию 0)
+  previewCrop?: string; // Признак обрезки превью (по умолчанию 'false')
+  previewSize?: string; // Размер превью (опционально, например '120x240')
+  sort?: string; // Атрибут сортировки (по умолчанию 'name')
+}

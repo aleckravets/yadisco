@@ -3,16 +3,19 @@ import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { DocumentIcon, MusicalNoteIcon } from "@heroicons/react/24/outline";
 import { FolderIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
-import { getResourceMetadata } from "@/lib/yandexDisk/getResourceMetadata";
+import { getResource } from "@/lib/yandexDisk/getResource";
 
 interface FilesProps {
   path?: string;
 }
 
 export async function FolderResourceView({ path }: FilesProps) {
-  const resource = await getResourceMetadata({
-    path,
-  });
+  const resource = await getResource(
+    {
+      path: path || "/",
+    },
+    { cache: "force-cache" }
+  );
 
   const { _embedded: embedded } = resource;
 

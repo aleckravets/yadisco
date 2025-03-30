@@ -1,19 +1,16 @@
 import { auth } from "@/auth";
-import axios from "axios";
+import ky from "ky";
 
-export const api = axios.create({
-  baseURL: "https://cloud-api.yandex.net/v1/disk",
-});
-
-api.interceptors.request.use(
-  async (config) => {
-    const session = await auth();
-
-    config.headers["Authorization"] = `OAuth ${session?.accessToken}`;
-
-    return config;
+export const yandexDiskApi = ky.extend({
+  prefixUrl: "https://cloud-api.yandex.net/v1/disk",
+  hooks: {
+    beforeRequest: [
+      async (request) => {
+        const session = await auth();
+        if (session?.accessToken) {
+          request.headers.set("Authorization", `OAuth ${session.accessToken}`);
+        }
+      }
+    ],
   },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+});
