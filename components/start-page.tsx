@@ -2,6 +2,7 @@ import Image from "next/image";
 import SignInButton from "./signin-button";
 import { User } from "next-auth";
 import Link from "next/link";
+import { signOut } from "@/auth";
 
 interface Props {
   user?: User;
@@ -66,6 +67,16 @@ function Authorized({ user }: Required<Props>) {
         className="size-14 rounded-full object-cover"
       />
       <div>Вы вошли как {user.name}</div>
+      <form
+        action={async () => {
+          "use server";
+          await signOut({ redirectTo: "/" });
+        }}
+        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer"
+      >
+        <button type="submit">Выйти</button>
+      </form>
+
       <Link
         href="/disk"
         className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer"

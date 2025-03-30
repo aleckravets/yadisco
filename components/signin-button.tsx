@@ -1,7 +1,7 @@
 import { signIn } from "@/auth";
-import { AuthError } from "next-auth";
+// import { AuthError } from "next-auth";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 interface Props {
   redirectTo?: string;
@@ -21,9 +21,9 @@ export default function SignInButton({ redirectTo = "/disk" }: Props) {
           // Signin can fail for a number of reasons, such as the user
           // not existing, or the user not having the correct role.
           // In some cases, you may want to redirect to a custom error
-          if (error instanceof AuthError) {
-            return redirect("/error");
-          }
+          // if (error instanceof AuthError) {
+          //   return redirect("/error");
+          // }
 
           // Otherwise if a redirects happens Next.js can handle it
           // so you can just re-thrown the error and let Next.js handle it.
