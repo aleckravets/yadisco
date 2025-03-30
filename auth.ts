@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import Yandex from "next-auth/providers/yandex";
 import { NextResponse } from "next/server";
 import "next-auth/jwt";
-import { url } from "inspector";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -45,3 +44,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+declare module "next-auth" {
+  interface Session {
+    accessToken?: string
+    user: {
+      name?: string
+      email?: string
+      image?: string
+    }
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    accessToken?: string
+    refreshToken?: string
+    expiresAt?: number
+  }
+}
