@@ -14,7 +14,7 @@ export default async function MainLayout({ children }: PropsWithChildren) {
 
   return (
     <StoreProvider>
-      <div className="flex h-screen w-full max-w-6xl mx-auto">
+      <div className="flex h-screen w-full max-w-4xl mx-auto">
         <aside className="w-52 h-full flex flex-col">
           <div className="h-6 flex gap-2 p-8 text-xl font-bold items-center justify-center">
             <Link href="/" className="flex items-center gap-2">

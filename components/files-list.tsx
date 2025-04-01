@@ -1,7 +1,7 @@
 "use client";
 import { FilesResourceList } from "@/lib/yandexDisk/types";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
-import { DocumentIcon, MusicalNoteIcon } from "@heroicons/react/24/outline";
+import { FileIcon } from "./file-item";
 // import { useState } from "react";
 
 interface FilesProps {
@@ -41,12 +41,4 @@ export function FilesList({ files }: FilesProps) {
       ))}
     </ul>
   );
-}
-
-export function FileIcon({ mimeType }: { mimeType: string }) {
-  if (mimeType?.startsWith("audio")) {
-    return <MusicalNoteIcon className="size-6" />;
-  }
-
-  return <DocumentIcon className="size-6" />;
 }
