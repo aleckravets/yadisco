@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import "next-auth/jwt";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  debug: process.env.NODE_ENV === "development",
   providers: [
     Yandex({
       authorization: {
@@ -13,7 +14,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             "login:info login:email login:avatar cloud_api:disk.read cloud_api:disk.app_folder",
         },
       },
-      checks: ["none"],
     }),
   ],
   pages: {

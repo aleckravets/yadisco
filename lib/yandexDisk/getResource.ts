@@ -8,7 +8,6 @@ export async function getResource(
   params: ResourceRequestParams,
   options?: Options
 ): Promise<Resource> {
-  console.log();
   return yandexDiskApi
     .get<Resource>("resources", {
       ...options,
