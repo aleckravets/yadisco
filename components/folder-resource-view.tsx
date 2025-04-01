@@ -1,4 +1,3 @@
-import { ArrowDownTrayIcon } from "@heroicons/react/24/solid";
 import { getResource } from "@/lib/yandexDisk/getResource";
 import { FolderItem } from "./folder-item";
 import { FileItem } from "./file-item";
