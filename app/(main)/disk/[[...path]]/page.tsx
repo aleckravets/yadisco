@@ -16,10 +16,10 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="h-16">
+      <div className="shrink-0 p-4">
         <Breadcrumbs path={path} />
       </div>
-      <div className="flex-1">
+      <div className="flex-1 overflow-auto">
         <Suspense fallback={<div>Loading...</div>}>
           <FolderResourceView path={path?.join("/")} />
         </Suspense>

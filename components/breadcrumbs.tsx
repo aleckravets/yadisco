@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {HomeIcon} from "@heroicons/react/24/outline";
 
 interface Props {
   path?: string[];
@@ -7,6 +8,7 @@ interface Props {
 interface Item {
   name: string;
   path: string;
+  icon?: React.ReactNode;
 }
 
 export function Breadcrumbs({ path }: Props) {
@@ -19,15 +21,16 @@ export function Breadcrumbs({ path }: Props) {
   items.unshift({ name: "Мой Диск", path: "/disk" });
 
   return (
-    <nav className="text-sm text-gray-600">
-      {items.map((item, index) => (
-        <span key={index} className="">
+    <nav className="text-xl text-gray-600">
+      {items.map(({name, path, icon}, index) => (
+        <span key={index}>
+          {icon}
           {index !== 0 && " / "}
           {index === items.length - 1 ? (
-            <span>{item.name}</span>
+            <span>{name}</span>
           ) : (
-            <Link href={item.path} className="hover:underline">
-              {item.name}
+            <Link href={path} className="hover:underline">
+              {name}
             </Link>
           )}
         </span>

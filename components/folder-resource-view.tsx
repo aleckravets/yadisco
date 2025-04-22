@@ -17,7 +17,7 @@ export async function FolderResourceView({ path }: FilesProps) {
   const { _embedded: embedded } = resource;
 
   return (
-    <ul className="h-full overflow-y-auto divide-y divide-gray-200">
+    <ul className="">
       {embedded &&
         embedded.items.map((resource) => (
           <li key={resource.path} className="group p-3 hover:bg-gray-100">
